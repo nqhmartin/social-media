@@ -17,6 +17,12 @@ import {translate} from '../../shared/translate/translate';
 import {useDispatch} from 'react-redux';
 import {LANGUAGE} from './constants';
 import store from '../../core';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import {loginStart} from './redux/action';
+
 interface Props {}
 interface MyFormValues {
   username: string;
@@ -26,18 +32,52 @@ const Login: React.FC<Props> = ({navigation}: any) => {
   const [isModalLanguage, setisModalLanguage] = useState<boolean>(false);
   const [labelLanguage, setlabelLanguage] = useState<string>('');
   const initialValues: MyFormValues = {username: '', password: ''};
+  const [infor, setinfor] = useState({});
+  console.log('🚀 ~ file: Login.tsx ~ line 36 ~ infor', infor);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const indexLanguage = LANGUAGE.filter(
       item => item.value == store.getState().rootStore.language,
     );
-
     setlabelLanguage(indexLanguage[0].label);
+
+    GoogleSignin.configure({
+      webClientId:
+        '512554377569-htllij5afdkel19lb2fmlgie375j8631.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
   }, []);
 
+  const loginWithGG = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      setinfor(userInfo);
+    } catch (error: any) {
+      console.log(
+        '🚀 ~ file: Login.tsx ~ line 54 ~ loginWithGG ~ error',
+        error,
+      );
+
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
   const submitLogin = (values: any) => {
-    navigation.navigate('Main');
+    const val = {
+      username: values.username,
+      password: values.password,
+    };
+
+    dispatch(loginStart(val));
   };
 
   const signupSchema = Yup.object().shape({
@@ -73,13 +113,13 @@ const Login: React.FC<Props> = ({navigation}: any) => {
             />
           </View>
 
-          <TouchableOpacity style={styles.loginFbBtn}>
+          <TouchableOpacity style={styles.loginFbBtn} onPress={loginWithGG}>
             <Image
               style={styles.loginFbBtnIcon}
-              source={require('../../assets/icons/facebook.png')}
+              source={require('../../assets/icons/google.png')}
             />
             <Text style={styles.loginFbBtnText}>
-              {translate('auth:loginFB')}
+              {translate('auth:loginGG')}
             </Text>
           </TouchableOpacity>
 
@@ -204,20 +244,20 @@ const styles = StyleSheet.create({
   loginFbBtn: {
     marginTop: ScaleH(15),
     width: '100%',
-    height: ScaleH(36),
-    backgroundColor: '#1877F2',
+    height: ScaleH(38),
+    backgroundColor: 'white',
     flexDirection: 'row',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    elevation: 5,
   },
   loginFbBtnIcon: {
-    height: ScaleH(32),
-    width: ScaleW(32),
-    tintColor: '#FFF9F9',
+    height: ScaleH(28),
+    width: ScaleW(28),
   },
   loginFbBtnText: {
-    color: '#FFF9F9',
+    color: '#AEA9A9',
     fontSize: ScaleW(18),
     paddingLeft: ScaleW(6),
   },

@@ -5,7 +5,7 @@ export const en = {
         langEn: "English",
     },
     auth: {
-        loginFB: "Continue with Facebook",
+        loginGG: "Continue with Google",
         or: "OR",
         placeholderUser: "Phone number, username or email",
         placeholderPass: "Password",
@@ -35,7 +35,7 @@ export const vi = {
         langEn: "English"
     },
     auth: {
-        loginFB: "Tiếp tục với Facebook",
+        loginGG: "Tiếp tục với Google",
         or: "Hoặc",
         placeholderUser: "Số điện thoại, tên người dùng hoặc email",
         placeholderPass: "Mật khẩu",

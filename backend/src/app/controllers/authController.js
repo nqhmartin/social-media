@@ -11,10 +11,7 @@ const createUser = (req, res) => {
         var salt = bcrypt.genSaltSync(10);
 
         var hash = bcrypt.hashSync(req.body.password, salt);
-        console.log(
-          "🚀 ~ file: authController.js ~ line 14 ~ .then ~ hash",
-          hash
-        );
+
         User.create({ ...req.body, password: hash })
           .then((result) => {
             res.json({
@@ -50,7 +47,7 @@ const SignIn = async (req, res) => {
             username: check.username,
           })
             .then((result) => {
-              res.json({ message: true, result });
+              res.json({ success: true, result });
             })
             .catch((err) => {
               res.json(err);
@@ -58,7 +55,7 @@ const SignIn = async (req, res) => {
         } else {
           res.json({
             success: false,
-            message: "wrong password",
+            message: "Wrong password",
           });
         }
       })

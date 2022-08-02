@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "178736383576",
-    "project_id": "instagram-90fbf",
-    "storage_bucket": "instagram-90fbf.appspot.com"
+    "project_number": "512554377569",
+    "project_id": "travelsocial-7a3cb",
+    "storage_bucket": "travelsocial-7a3cb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:178736383576:android:67418ca98119a27627ac2d",
+        "mobilesdk_app_id": "1:512554377569:android:e75ebca805a990528e2520",
         "android_client_info": {
           "package_name": "com.socialmedia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "178736383576-ddmkg57r6bihlrgl2hd200ihai4eq8ps.apps.googleusercontent.com",
+          "client_id": "512554377569-htllij5afdkel19lb2fmlgie375j8631.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBHajv9zlYc4yjbWQHFcwQ1lYqVx7_PbcU"
+          "current_key": "AIzaSyD50DxYaU5mG8rGUEF7qMjLqr12gNDFqz0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "178736383576-ddmkg57r6bihlrgl2hd200ihai4eq8ps.apps.googleusercontent.com",
+              "client_id": "512554377569-htllij5afdkel19lb2fmlgie375j8631.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
