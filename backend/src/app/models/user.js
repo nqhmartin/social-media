@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
+      default: "Viet Nam",
     },
     avatar: {
       type: String,

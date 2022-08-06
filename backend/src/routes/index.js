@@ -1,4 +1,5 @@
 const Auth = require("./auth");
+const Post = require("./post");
 const route = (app) => {
   app.get("/", (req, res) => {
     res.json({
@@ -7,6 +8,7 @@ const route = (app) => {
   });
 
   app.use("/auth", Auth);
+  app.use("/post", Post);
 };
 
 module.exports = route;
