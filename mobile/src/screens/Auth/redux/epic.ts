@@ -1,12 +1,13 @@
+import { Alert } from "react-native";
 import { combineEpics, ofType } from "redux-observable";
 import { catchError, delay, exhaustMap, map, mergeMap, Observable, switchMap } from "rxjs";
+import { navigate } from "../../../configs/rootNavigation";
 import { request } from "../../../shared/api";
 import { URL, API } from "../../../shared/systems";
 import { loginStart, loginFailed, loginSuccess } from "./action"
 export const loginStart$ = (action$: Observable<any>): Observable<any> =>
     action$.pipe(
         ofType(loginStart.type),
-        delay(500),
         mergeMap((action) => {
             return request({
                 method: "POST",
@@ -17,18 +18,28 @@ export const loginStart$ = (action$: Observable<any>): Observable<any> =>
     ).pipe(
         map((result: any) => {
             if (result.success == true) {
-                return loginSuccess(result)
+                navigate("Main")
+                return loginSuccess(result.result)
             } else {
+                Alert.alert(
+                    'Alert system',
+                    //body
+                    `${result.message}`,
+                    [
+
+
+                        {
+                            text: 'OK', onPress: () => console.log('OK Pressed')
+                        },
+                    ],
+                    { cancelable: true },
+                );
                 return loginFailed(result)
             }
         }),
         catchError((err: any) => {
-            console.log(err)
             return loginFailed(err)
         })
     )
 
 
-export const loginEpic = combineEpics(
-    loginStart$
-)

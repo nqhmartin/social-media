@@ -1,9 +1,12 @@
 import { combineEpics } from "redux-observable";
 import { configLanguage$ } from "./root/epic";
-import { loginEpic } from "../screens/Auth/redux/epic"
+import { loginStart$ } from "../screens/Auth/redux/epic"
+import { getAddress$ } from "../screens/Post/redux/epic"
 const rootEpic = combineEpics(
     configLanguage$,
-    loginEpic
+    loginStart$,
+    getAddress$
+
 )
 
 export default rootEpic;

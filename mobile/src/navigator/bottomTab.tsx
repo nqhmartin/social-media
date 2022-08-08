@@ -7,7 +7,7 @@ import ProfileScreen from '../screens/Profile';
 import HomeScreen from '../screens/Home';
 import {Image, StyleSheet} from 'react-native';
 import {ScaleH, ScaleW} from '../shared/common';
-
+import MessengerScreen from '../screens/Messenger';
 type Props = {};
 
 const StackBottom = createBottomTabNavigator();
@@ -37,11 +37,11 @@ const BottomTab = (props: Props) => {
               />
             );
           }
-          if (route.name == 'Explore') {
+          if (route.name == 'Messenger') {
             return (
               <Image
                 resizeMode="contain"
-                source={require('../assets/icons/world.png')}
+                source={require('../assets/icons/messenger.png')}
                 style={[
                   styles.icon,
                   {tintColor: focused ? '#0F44CC' : '#2D323E'},
@@ -89,9 +89,11 @@ const BottomTab = (props: Props) => {
         },
       })}>
       <StackBottom.Screen name="Home" component={HomeScreen} />
-      <StackBottom.Screen name="Explore" component={ExploreScreen} />
-      <StackBottom.Screen name="Post" component={PostScreen} />
       <StackBottom.Screen name="Search" component={SearchScreen} />
+
+      <StackBottom.Screen name="Post" component={PostScreen} />
+      <StackBottom.Screen name="Messenger" component={MessengerScreen} />
+
       <StackBottom.Screen name="Profile" component={ProfileScreen} />
     </StackBottom.Navigator>
   );

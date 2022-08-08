@@ -1,34 +1,51 @@
+import * as React from 'react';
 import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  StatusBar,
+  View,
+  useWindowDimensions,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
+  StatusBar,
 } from 'react-native';
-import React, {useState} from 'react';
-import {ScaleH, ScaleW} from '../../shared/common';
-import Header from './components/header';
-import {DATA} from './constant';
-import ItemList from './components/itemList';
-import {DATAHEADER} from './constant';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {ScaleW} from '../../shared/common';
+import {translate} from '../../shared/translate/translate';
+import TabExplore from './tabExplore';
+import TabFollowing from './tabFollowing';
 
-interface Props {}
+export default function TabViewExample({navigation}: any) {
+  const layout = useWindowDimensions();
 
-const Home: React.FC<Props> = ({navigation}: any) => {
-  const [typeHeader, settypeHeader] = useState(DATAHEADER[0]);
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    {key: 'first', title: translate('home:explore')},
+    {key: 'second', title: translate('home:following')},
+  ]);
 
-  const renderItem = ({item, index}: any) => {
-    return <ItemList item={item} navigation={navigation} />;
+  const renderScene = SceneMap({
+    first: () => <TabExplore navigation={navigation} />,
+    second: () => <TabFollowing navigation={navigation} />,
+  });
+
+  const renderTabBar = (props: any) => {
+    return (
+      <TabBar
+        {...props}
+        indicatorStyle={{backgroundColor: '#0C0F14'}}
+        pressColor={'transparent'}
+        style={{
+          backgroundColor: 'white',
+          width: '60%',
+          elevation: 0,
+          alignSelf: 'center',
+          borderRadius: 10,
+        }}
+        labelStyle={{
+          color: '#0C0F14',
+          textTransform: 'capitalize',
+        }}></TabBar>
+    );
   };
 
-  const loadMore = () => {
-    return <ActivityIndicator size={'large'} color="red" />;
-  };
-
-  const onRefresh = () => {};
   return (
     <View style={styles.container}>
       <StatusBar
@@ -37,38 +54,29 @@ const Home: React.FC<Props> = ({navigation}: any) => {
         barStyle={'dark-content'}
         animated
       />
-      <Header
-        valuesDefault={typeHeader}
-        onChange={(values: any) => settypeHeader(values)}
+      <TabView
+        lazy={true}
+        navigationState={{index, routes}}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{width: layout.width}}
+        renderTabBar={renderTabBar}
       />
-      <View style={styles.body}>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
-          data={DATA}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-          onEndReached={loadMore}
-          initialScrollIndex={3}
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onRefresh} />
-          }
-        />
-      </View>
     </View>
   );
-};
-
-export default Home;
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'white',
   },
-  body: {
-    alignItems: 'flex-end',
-    marginLeft: ScaleW(-16),
-    flex: 1,
+  noLabel: {
+    display: 'none',
+    height: 0,
+  },
+  bubble: {
+    backgroundColor: 'white',
+    // height: ScaleH(50),
   },
 });

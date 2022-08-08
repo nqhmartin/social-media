@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const route = require("./src/routes/index");
 const { connect } = require("./src/db/config");
-
+const path = require("path");
 //connect database
 connect();
 
@@ -36,7 +36,8 @@ app.use(
     limit: "50mb",
   })
 );
-route(app);
+app.use("/images", express.static(path.join(__dirname, "/images")));
 server.listen(3000, () => {
   console.log("listening on *:3000");
 });
+route(app);

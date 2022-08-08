@@ -24,7 +24,8 @@ export const en = {
         follow: "Follow",
         answer: "Answer",
         like: "Like",
-        placeholderCmt: "Leave a comment"
+        placeholderCmt: "Leave a comment",
+        explore: "Explore"
     }
 }
 
@@ -52,7 +53,8 @@ export const vi = {
         answer: "Trả lời",
         like: "Thích",
         placeholderCmt: "Để lại bình luận",
-        errorInput: "Trường này không được để trống!"
+        errorInput: "Trường này không được để trống!",
+        explore: "Khám phá"
 
     }
 }

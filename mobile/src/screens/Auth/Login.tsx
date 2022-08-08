@@ -14,7 +14,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ModalLanguage from './components/modalChooseLanguage';
 import * as Yup from 'yup';
 import {translate} from '../../shared/translate/translate';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {LANGUAGE} from './constants';
 import store from '../../core';
 import {
@@ -22,7 +22,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {loginStart} from './redux/action';
-
+import ModalLoading from '../../shared/components/Modal/loading';
 interface Props {}
 interface MyFormValues {
   username: string;
@@ -33,9 +33,12 @@ const Login: React.FC<Props> = ({navigation}: any) => {
   const [labelLanguage, setlabelLanguage] = useState<string>('');
   const initialValues: MyFormValues = {username: '', password: ''};
   const [infor, setinfor] = useState({});
-  console.log('🚀 ~ file: Login.tsx ~ line 36 ~ infor', infor);
   const dispatch = useDispatch();
 
+  const isLoading = useSelector((state: any) => state.rootStore.isLoading);
+  const errorMessage = useSelector(
+    (state: any) => state.rootStore.errorMessage,
+  );
   useEffect(() => {
     const indexLanguage = LANGUAGE.filter(
       item => item.value == store.getState().rootStore.language,
@@ -145,6 +148,9 @@ const Login: React.FC<Props> = ({navigation}: any) => {
             }) => {
               return (
                 <View style={styles.box}>
+                  {errorMessage && (
+                    <Text style={styles.errors}>{errorMessage}</Text>
+                  )}
                   <Cinput
                     placeholder={translate('auth:placeholderUser')}
                     onChangeText={(txt: any) => setFieldValue('username', txt)}
@@ -206,6 +212,7 @@ const Login: React.FC<Props> = ({navigation}: any) => {
         title={translate('alert:chooseLang')}
         onChange={(e: string) => setlabelLanguage(e)}
       />
+      <ModalLoading isVisible={isLoading} />
     </View>
   );
 };

@@ -7,10 +7,11 @@ type Props = {};
 
 const CheckUSer: React.FC<Props> = ({navigation}: any) => {
   const checkUser = () => {
-    if (true) {
+    const check = store.getState().rootStore.userInfo as any;
+    if (!check.username) {
       navigation.navigate('Login');
     } else {
-      navigation.navigate('Login');
+      navigation.navigate('Main');
     }
   };
   useEffect(() => {

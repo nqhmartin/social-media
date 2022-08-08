@@ -7,6 +7,7 @@ import CheckUserScreen from '../screens/Auth/CheckUser';
 import BottomTab from './bottomTab';
 import DetailItem from '../screens/Home/DetailItem';
 import Messenger from '../screens/Messenger';
+import {navigationRef} from '../configs/rootNavigation';
 const configHeader = {
   headerShown: false,
 };
@@ -27,7 +28,7 @@ const StackApp = createNativeStackNavigator();
 
 const index = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <StackApp.Navigator initialRouteName="Auth" screenOptions={configHeader}>
         <StackApp.Screen name="Auth" component={AuthStack} />
         <StackApp.Screen name="Main" component={BottomTab} />

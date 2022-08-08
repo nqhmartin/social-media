@@ -1,4 +1,4 @@
-export const DATAHEADER = ['home:all', 'home:forYou', 'home:following'];
+export const DATAHEADER = ['home:all', 'home:following'];
 export const DATA = [
   {
     images:

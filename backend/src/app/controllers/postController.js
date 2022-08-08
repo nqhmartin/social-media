@@ -1,17 +1,23 @@
 const Post = require("../models/post");
 const User = require("../models/user");
+const Axios = require("axios").default;
 class PostController {
-  createPost = (req, res) => {
+  createPost = async (req, res) => {
+    const URLMAP = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.addressCheckin}&key=AIzaSyC3wFFNSJDLnh2HRy8Caw3wYHF5D76dRFA`;
+    const encodedURI = encodeURI(URLMAP);
+    const location = await Axios.get(encodedURI);
+
     User.findById({
       _id: req.body.userId,
     })
       .then((dataUser) => {
         Post.create({
-          images: req.body.images,
+          images: req.file.path,
           content: req.body.content,
           location: {
-            name: req.body.location.name,
-            icon: req.body.location.icon,
+            name: req.body.addressCheckin,
+            latitude: location.data.results[0].geometry.location.lat,
+            longitude: location.data.results[0].geometry.location.lng,
           },
           user: {
             userId: req.body.userId,
@@ -20,6 +26,7 @@ class PostController {
             address: dataUser.address,
             fullName: dataUser.fullName,
           },
+          createdAt: req.body.createdAt,
         })
           .then((result) => {
             res.json({
