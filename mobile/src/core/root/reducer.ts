@@ -3,7 +3,7 @@ import { chooseLanguage } from "./action"
 import { loginFailed, loginStart, loginSuccess } from "../../screens/Auth/redux/action"
 interface defineState {
     language: string,
-    userInfo: object,
+    userInfo: any,
     access_token: string,
     refresh_token: string,
     isLoading: boolean,

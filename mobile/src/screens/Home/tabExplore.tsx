@@ -21,7 +21,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({navigation}) => {
   const renderItem = ({item, index}: any) => {
-    return <ItemList item={item} navigation={navigation} />;
+    return <ItemList item={item} index={index} navigation={navigation} />;
   };
 
   const loadMore = () => {

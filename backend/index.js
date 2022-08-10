@@ -10,13 +10,14 @@ const path = require("path");
 connect();
 
 // test realtime
-const io = new Server(server);
+const io = new Server(server, {
+  path: "/message",
+});
 io.on("connection", (socket) => {
   console.log("New client connected   " + socket.id);
   socket.emit("getId", socket.id);
 
   socket.on("sendDataClient", function (data) {
-    console.log("🚀 ~ file: index.js ~ line 11 ~ socket.on ~ data", data);
     io.emit("sendDataServer", { data });
   });
 

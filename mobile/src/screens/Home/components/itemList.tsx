@@ -11,13 +11,14 @@ import {ScaleH, ScaleW} from '../../../shared/common';
 interface Props {
   item: any;
   navigation: any;
+  index: number;
 }
 const DEVICE_WITDH = Dimensions.get('screen').width / 2;
 
-const ItemList: React.FC<Props> = ({item, navigation}: any) => {
+const ItemList: React.FC<Props> = ({item, index, navigation}: any) => {
   return (
     <TouchableOpacity
-      style={styles.item}
+      style={[styles.item]}
       onPress={() => navigation.navigate('DetailItem', {item})}>
       <View style={styles.itemTop}>
         <Image source={{uri: item.user?.images}} style={styles.itemAvatar} />

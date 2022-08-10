@@ -19,8 +19,8 @@ const BottomTab = (props: Props) => {
         tabBarStyle: {
           height: ScaleH(50),
           paddingTop: ScaleH(10),
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
+          // borderTopLeftRadius: 20,
+          // borderTopRightRadius: 20,
         },
         headerShown: false,
         tabBarLabel: '',

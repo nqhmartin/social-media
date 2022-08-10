@@ -34,6 +34,7 @@
     "react-native": "0.69.2",
     "react-native-code-push": "^7.0.5",
     "react-native-date-picker": "^4.2.5",
+    "react-native-gifted-chat": "^1.0.4",
     "react-native-image-picker": "^4.8.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-maps": "^1.1.0",

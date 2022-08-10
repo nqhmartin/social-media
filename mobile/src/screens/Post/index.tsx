@@ -39,6 +39,8 @@ const Post: React.FC<Props> = () => {
   });
   const submitLogin = (values: any) => {
     const createdAt = moment(new Date()).valueOf();
+
+    // console.log(moment(createdAt).startOf('hours').fromNow());
   };
   return (
     <View style={styles.container}>
