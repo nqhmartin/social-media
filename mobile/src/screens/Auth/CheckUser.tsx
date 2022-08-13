@@ -6,8 +6,9 @@ import store from '../../core';
 type Props = {};
 
 const CheckUSer: React.FC<Props> = ({navigation}: any) => {
+  const check = store.getState().rootStore.userInfo as any;
+
   const checkUser = () => {
-    const check = store.getState().rootStore.userInfo as any;
     if (!check.username) {
       navigation.navigate('Login');
     } else {
@@ -17,7 +18,7 @@ const CheckUSer: React.FC<Props> = ({navigation}: any) => {
   useEffect(() => {
     checkUser();
     changeLanguage(store.getState().rootStore.language);
-  }, []);
+  }, [check.username]);
   return (
     <View>
       <Text>CheckUSer</Text>

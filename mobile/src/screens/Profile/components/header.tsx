@@ -1,6 +1,9 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ScaleH, ScaleW} from '../../../shared/common';
+import store from '../../../core';
+import {logout} from '../../../core/root/action';
+import {navigate} from '../../../configs/rootNavigation';
 
 interface Props {
   data: any;
@@ -49,6 +52,13 @@ const Header: React.FC<Props> = props => {
           <Text style={styles.trackingItemText}>{data?.follower}</Text>
           <Text style={styles.trackingItemText100}>Follower</Text>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            store.dispatch(logout());
+            navigate('CheckUser');
+          }}>
+          <Text>Log out</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

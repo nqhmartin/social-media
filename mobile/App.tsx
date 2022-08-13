@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Navigator from './src/navigator/index';
 import {enableLatestRenderer} from 'react-native-maps';
 enableLatestRenderer();
@@ -10,12 +10,16 @@ import {View} from 'react-native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import codePush, {CodePushOptions} from 'react-native-code-push';
-
+import {pushNotication} from './src/configs/pushNotification';
 type Props = {};
 
 let persistor = persistStore(store);
 
 const App = (props: Props) => {
+  useEffect(() => {
+    pushNotication();
+  }, []);
+
   return (
     <View style={{flex: 1}}>
       <I18nextProvider i18n={i18next}>

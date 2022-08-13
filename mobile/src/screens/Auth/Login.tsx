@@ -95,7 +95,7 @@ const Login: React.FC<Props> = ({navigation}: any) => {
         barStyle={'dark-content'}
         animated
       />
-      <KeyboardAwareScrollView style={{flex: 1}}>
+      <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.body}>
           <TouchableOpacity
             style={styles.languageBtn}
@@ -111,8 +111,9 @@ const Login: React.FC<Props> = ({navigation}: any) => {
 
           <View style={styles.logo}>
             <Image
-              source={require('../../assets/images/logo/instagram.png')}
+              source={require('../../assets/images/logo/travelvn1.png')}
               resizeMode="contain"
+              style={{height: ScaleH(100)}}
             />
           </View>
 
@@ -249,7 +250,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   loginFbBtn: {
-    marginTop: ScaleH(15),
     width: '100%',
     height: ScaleH(38),
     backgroundColor: 'white',

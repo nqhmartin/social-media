@@ -3,4 +3,5 @@
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
      <string moduleConfig="true" name="CodePushDeploymentKey">JGtSeZAhjafmozfAWWL4Sz0nMq2WY9R4JQron</string>
+     <string  name="default_notification_channel_id">fcm_fallback_notification_channel</string>
 </resources>

@@ -1,12 +1,19 @@
 import { combineReducers, createReducer } from "@reduxjs/toolkit";
-import { chooseLanguage } from "./action"
-import { loginFailed, loginStart, loginSuccess } from "../../screens/Auth/redux/action"
+import { chooseLanguage, getTokenFirebase, logout } from "./action"
+import {
+    loginFailed,
+    loginStart,
+    loginSuccess,
+
+
+} from "../../screens/Auth/redux/action"
 interface defineState {
     language: string,
     userInfo: any,
     access_token: string,
     refresh_token: string,
     isLoading: boolean,
+    tokenFirebase: string
 }
 const initialState: defineState = {
     language: "en",
@@ -14,10 +21,11 @@ const initialState: defineState = {
     access_token: "",
     refresh_token: "",
     isLoading: false,
+    tokenFirebase: ""
 }
 export const reducer = createReducer(initialState, builder => builder
     .addCase(chooseLanguage, (state, action) => {
-        return state = { ...state, language: action.payload, isLoading: false }
+        return state = { ...state, language: action.payload, }
     })
     .addCase(loginStart, (state, action) => {
         return state = {
@@ -37,6 +45,19 @@ export const reducer = createReducer(initialState, builder => builder
             ...state,
             isLoading: false,
 
+        }
+    })
+    .addCase(getTokenFirebase, (state, action) => {
+        return state = {
+            ...state,
+            tokenFirebase: action.payload,
+            isLoading: false
+        }
+    })
+    .addCase(logout, (state, action) => {
+        return state = {
+            ...state,
+            userInfo: {}
         }
     })
 )

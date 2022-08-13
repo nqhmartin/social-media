@@ -13,9 +13,10 @@ import {io} from 'socket.io-client';
 import {ScaleH, ScaleW} from '../../shared/common';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import store from '../../core';
+import {API, URL} from '../../shared/systems';
 type Props = {};
 
-const socket = io('http://192.168.100.130:3000', {
+const socket = io(URL, {
   path: '/message',
 });
 const Messenger = (props: Props) => {
