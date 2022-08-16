@@ -27,11 +27,12 @@ export default CInput;
 const styles = StyleSheet.create({
   input: {
     width: '100%',
-    height: ScaleH(42),
+    height: ScaleH(45),
     backgroundColor: '#E8E6E6',
     borderRadius: 5,
     paddingHorizontal: ScaleW(18),
     fontSize: ScaleW(14),
     marginBottom: ScaleH(10),
+    paddingVertical: ScaleH(4),
   },
 });

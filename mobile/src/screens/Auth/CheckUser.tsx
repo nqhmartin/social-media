@@ -18,7 +18,7 @@ const CheckUSer: React.FC<Props> = ({navigation}: any) => {
   useEffect(() => {
     checkUser();
     changeLanguage(store.getState().rootStore.language);
-  }, [check.username]);
+  }, [check]);
   return (
     <View>
       <Text>CheckUSer</Text>

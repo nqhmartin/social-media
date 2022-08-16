@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     tintColor: '#C5C5C5',
   },
   logo: {
-    marginVertical: ScaleH(50),
+    marginVertical: ScaleH(40),
     alignSelf: 'center',
   },
   loginFbBtn: {

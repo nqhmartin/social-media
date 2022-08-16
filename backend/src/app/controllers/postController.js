@@ -85,8 +85,30 @@ class PostController {
       });
   };
 
-  getPost = (req, res) => {
-    Post.find()
+  getPost = async (req, res) => {
+    try {
+      const { page = 1, limit = 10 } = req.query;
+      const dataPost = await Post.find()
+        .sort({ createdAt: 1 })
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
+
+      res.json({
+        message: true,
+        dataPost,
+      });
+    } catch (error) {
+      res.json({
+        message: false,
+        error,
+      });
+    }
+  };
+
+  getPostDetail = (req, res) => {
+    Post.findById({
+      _id: req.query.postId,
+    })
       .then((result) => {
         res.json({
           message: true,
@@ -101,10 +123,12 @@ class PostController {
       });
   };
 
-  getPostDetail = (req, res) => {
-    Post.findById({
-      _id: req.query.postId,
-    })
+  getPostUser = (req, res) => {
+    Post.find()
+      .where("user")
+      .elemMatch({
+        userId: req.query.userId,
+      })
       .then((result) => {
         res.json({
           message: true,

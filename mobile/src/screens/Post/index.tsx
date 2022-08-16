@@ -15,6 +15,12 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {translate} from '../../shared/translate/translate';
 import moment from 'moment';
+import Axios from 'axios';
+import {URL} from '../../shared/systems';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../core';
+import {createPost} from './redux/action';
+import Modal from '../../shared/components/Modal/loading';
 interface Props {}
 interface MyFormValues {
   content: string;
@@ -31,16 +37,33 @@ const Post: React.FC<Props> = () => {
     isModalAddress: false,
     checkImage: '',
   };
+  const userId = useSelector(
+    (state: RootState) => state.rootStore.userInfo._id,
+  );
+  const isLoading = useSelector((state: RootState) => state.post.loading);
+  const dispatch = useDispatch();
 
   const signupSchema = Yup.object().shape({
     content: Yup.string().required(translate('auth:errorInput')),
     addressCheckin: Yup.string().required(translate('auth:errorInput')),
     checkImage: Yup.string().required(translate('auth:errorInput')),
   });
-  const submitLogin = (values: any) => {
+  const submitLogin = (values: MyFormValues) => {
     const createdAt = moment(new Date()).valueOf();
-
     // console.log(moment(createdAt).startOf('hours').fromNow());
+    const formData = new FormData();
+
+    formData.append('images', {
+      uri: values.photo.uri,
+      type: values.photo.type,
+      name: values.photo.fileName,
+    });
+    formData.append('userId', userId);
+    formData.append('content', values.content);
+    formData.append('addressCheckin', values.addressCheckin);
+    formData.append('createdAt', createdAt);
+
+    dispatch(createPost(formData));
   };
   return (
     <View style={styles.container}>
@@ -69,7 +92,7 @@ const Post: React.FC<Props> = () => {
                 includeBase64: true,
               },
               (res: any) => {
-                setFieldValue('photo', res.assets);
+                setFieldValue('photo', res.assets[0]);
                 setFieldValue('checkImage', 'hihi');
               },
             );
@@ -105,7 +128,7 @@ const Post: React.FC<Props> = () => {
               </View>
               {values.photo && (
                 <Image
-                  source={{uri: values.photo[0].uri}}
+                  source={{uri: values.photo.uri}}
                   // resizeMode="contain"
                   style={styles.image}
                 />
@@ -145,6 +168,7 @@ const Post: React.FC<Props> = () => {
           );
         }}
       </Formik>
+      <Modal isVisible={isLoading} />
     </View>
   );
 };
