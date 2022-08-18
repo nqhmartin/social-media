@@ -1,9 +1,9 @@
 import Axios from 'axios';
 
 interface params {
-  method: string;
+  method?: string;
   url: string;
-  param: string;
+  param?: string;
 }
 export const request = (props: params): any => {
   if (props.method === 'POST') {
@@ -17,7 +17,9 @@ export const request = (props: params): any => {
   }
 
   if (props.method === 'GET') {
-    return Axios.get(props.url)
+    return Axios.get(props.url, {
+      params: props.param,
+    })
       .then(result => {
         return result.data;
       })

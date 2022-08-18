@@ -49,8 +49,7 @@ const Post: React.FC<Props> = () => {
     checkImage: Yup.string().required(translate('auth:errorInput')),
   });
   const submitLogin = (values: MyFormValues) => {
-    const createdAt = moment(new Date()).valueOf();
-    // console.log(moment(createdAt).startOf('hours').fromNow());
+    const createdAt = moment(new Date().toString()).valueOf();
     const formData = new FormData();
 
     formData.append('images', {

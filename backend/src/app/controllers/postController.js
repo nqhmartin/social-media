@@ -124,11 +124,9 @@ class PostController {
   };
 
   getPostUser = (req, res) => {
-    Post.find()
-      .where("user")
-      .elemMatch({
-        userId: req.query.userId,
-      })
+    Post.find({
+      "user.userId": req.query.userId,
+    })
       .then((result) => {
         res.json({
           message: true,

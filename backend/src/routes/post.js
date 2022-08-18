@@ -11,6 +11,6 @@ router.post(
 router.put("/comment", PostController.createComment);
 router.get("/detail", PostController.getPostDetail);
 router.get("/user", PostController.getPostUser);
-router.get("/", PostController.getPost);
+router.get("/explore", PostController.getPost);
 
 module.exports = router;

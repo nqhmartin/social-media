@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import {ScaleH, ScaleW} from '../../../shared/common';
+import {formatTimeAgo} from '../../../shared/constant';
+import moment from 'moment';
 interface Props {
   item: any;
   navigation: any;
@@ -21,8 +23,8 @@ const ItemList: React.FC<Props> = ({item, index, navigation}: any) => {
       style={[styles.item]}
       onPress={() => navigation.navigate('DetailItem', {item})}>
       <View style={styles.itemTop}>
-        <Image source={{uri: item.user?.images}} style={styles.itemAvatar} />
-        <Text style={styles.itemTopText}>{item.user?.name}</Text>
+        <Image source={{uri: item.user?.avatar}} style={styles.itemAvatar} />
+        <Text style={styles.itemTopText}>{item.user?.fullName}</Text>
       </View>
       <View>
         <Image
@@ -31,7 +33,7 @@ const ItemList: React.FC<Props> = ({item, index, navigation}: any) => {
           resizeMode="cover"
         />
         <Image
-          source={{uri: item?.location?.images}}
+          source={{uri: item?.location?.icon}}
           style={styles.itemCountries}
         />
       </View>
@@ -39,7 +41,9 @@ const ItemList: React.FC<Props> = ({item, index, navigation}: any) => {
         <Text numberOfLines={2} style={styles.itemContentText}>
           {item.content}
         </Text>
-        <Text style={styles.itemContentCreated}>Posted 1hr ago</Text>
+        <Text style={styles.itemContentCreated}>
+          {formatTimeAgo(item.createdAt.toString())}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -49,9 +53,9 @@ export default ItemList;
 
 const styles = StyleSheet.create({
   item: {
-    width: '44%',
-    marginLeft: ScaleW(16),
-    marginTop: ScaleW(16),
+    width: DEVICE_WITDH - 25,
+    marginLeft: ScaleW(14),
+    marginTop: ScaleW(10),
   },
   itemTop: {
     flexDirection: 'row',
@@ -66,6 +70,7 @@ const styles = StyleSheet.create({
     fontSize: ScaleW(12),
     fontWeight: 'bold',
     color: '#0c0F14',
+    marginLeft: ScaleW(5),
   },
   itemImages: {
     width: '100%',
